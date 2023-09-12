@@ -79,15 +79,9 @@ Route::get('/task', function () use ($tasks) {
   ]);
 })->name('task.index');
 
-Route::get('/task/{id}', function($id) use ($tasks){
-  //guardar     crear coleccion, encontrar por 'id' el $id
-  $task = collect($tasks)->firstWhere("id", $id);
-
-  if(!$task){
-    abort(Response::HTTP_NOT_FOUND);
-  }
-
-  return view("show", ["task" => $task]);
+Route::get('/task/{id}', function($id) {
+  
+  return view("show", ["task" => \App\Models\Task::find($id)]);
 })->name('task.show');
 
 
